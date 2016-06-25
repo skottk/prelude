@@ -32,11 +32,18 @@
 ;; Boston, MA 02110-1301, USA.
 
 ;;; Code:
+
+
 (defvar current-user
       (getenv
        (if (equal system-type 'windows-nt) "USERNAME" "USER")))
 
 (message "Prelude is powering up... Be patient, Master %s!" current-user)
+
+
+(set 'gc-cons-threshold 100000000)
+
+(let ((file-name-handler-alist nil))
 
 (when (version< emacs-version "24.1")
   (error "Prelude requires at least GNU Emacs 24.1, but you're running %s" emacs-version))
@@ -131,5 +138,5 @@ by Prelude.")
 (prelude-eval-after-init
  ;; greet the use with some useful tip
  (run-at-time 5 nil 'prelude-tip-of-the-day))
-
+)
 ;;; init.el ends here
